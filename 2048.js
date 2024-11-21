@@ -51,6 +51,7 @@ function setGame() {
 
 }
 
+
 function updateTile(tile, num) {
     tile.innerText = "";
     tile.classList.value = ""; //clear the classList
