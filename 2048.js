@@ -46,8 +46,8 @@ function setGame() {
         }
     }
     //create 2 to begin the game
-    setNewTile();
-    setNewTile();
+    setTwo();
+    setTwo();
 
 }
 
@@ -191,6 +191,22 @@ function setNewTile() {
         let c = Math.floor(Math.random() * columns);
         if (board[r][c] == 0) {
             board[r][c] = Math.random() < 0.9 ? 2 : 4;
+            let tile = document.getElementById(r.toString() + "-" + c.toString());
+            updateTile(tile, board[r][c]);
+            found = true;
+        }
+    }
+}
+function setTwo() {
+    if (!hasEmptyTile()) {
+        return;
+    }
+    let found = false;
+    while (!found) {
+        let r = Math.floor(Math.random() * rows);
+        let c = Math.floor(Math.random() * columns);
+        if (board[r][c] == 0) {
+            board[r][c] = 2;
             let tile = document.getElementById(r.toString() + "-" + c.toString());
             updateTile(tile, board[r][c]);
             found = true;
