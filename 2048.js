@@ -207,9 +207,28 @@ function slideDown() {
     }
 }
 
-//NOTE: set 2 90% of the time, set 4 10% of the time
+function handleLoss() {
+    gameOver = true;
+
+    // Create the overlay div
+    const overlay = document.createElement("div");
+    overlay.id = "game-over-overlay";
+
+    // Create the message
+    const message = document.createElement("div");
+    message.id = "game-over-message";
+    message.innerText = "You Lost GetWashU!";
+    
+    // Append message and button to the overlay
+    overlay.appendChild(message);
+    // Append the overlay to the body
+    document.body.appendChild(overlay);
+}
+
 function setNewTile() {
     if (!hasEmptyTile()) {
+        //handle loss
+        handleLoss();
         return;
     }
     let found = false;
