@@ -143,3 +143,31 @@ hr {
     height: 30px;
     object-fit: contain;
 }
+
+/* Game Over Overlay */
+#game-over-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#game-over-message {
+    color: white;
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#game-over-overlay button {
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+}

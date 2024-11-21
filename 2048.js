@@ -2,6 +2,7 @@ var board;
 var score = 0;
 var rows = 4;
 var columns = 4;
+let gameOver = false;
 
 let numToImage = {
     2: "slu.jpg",
@@ -49,6 +50,9 @@ function setGame() {
     setTwo();
     setTwo();
 
+    //testing
+    // set1024();
+    // set1024();
 }
 
 
@@ -63,17 +67,39 @@ function updateTile(tile, num) {
         img.style.height = "100%";
         tile.appendChild(img);
         
-        if (num <= 4096) {
+        if (num < 2048) {
             tile.classList.add("x"+num.toString());
-        } else {
-            tile.classList.add("x8192");
+        } else { //beat the game
+            //tile.classList.add("x8192");
+            endGame();
         }                
     }
 }
 
+function endGame() {
+    gameOver = true;
+
+    // Create the overlay div
+    const overlay = document.createElement("div");
+    overlay.id = "game-over-overlay";
+
+    // Create the message
+    const message = document.createElement("div");
+    message.id = "game-over-message";
+    message.innerText = "You Beat GetWashU!";
+    
+    // Append message and button to the overlay
+    overlay.appendChild(message);
+    // Append the overlay to the body
+    document.body.appendChild(overlay);
+}
+
+
 
 // Keyup event listener for arrow keys
 document.addEventListener('keyup', (e) => {
+    if (gameOver) return; // Do nothing if the game is over
+
     if (e.code === "ArrowLeft") {
         slideLeft();
         setNewTile();
@@ -214,6 +240,24 @@ function setTwo() {
         }
     }
 }
+//testing
+function set1024() {
+    if (!hasEmptyTile()) {
+        return;
+    }
+    let found = false;
+    while (!found) {
+        let r = Math.floor(Math.random() * rows);
+        let c = Math.floor(Math.random() * columns);
+        if (board[r][c] == 0) {
+            board[r][c] = 1024;
+            let tile = document.getElementById(r.toString() + "-" + c.toString());
+            updateTile(tile, board[r][c]);
+            found = true;
+        }
+    }
+}
+
 
 function hasEmptyTile() {
     let count = 0;
