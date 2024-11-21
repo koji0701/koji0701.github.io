@@ -70,26 +70,77 @@ function updateTile(tile, num) {
     }
 }
 
+
+// Keyup event listener for arrow keys
 document.addEventListener('keyup', (e) => {
-    if (e.code == "ArrowLeft") {
+    if (e.code === "ArrowLeft") {
         slideLeft();
         setNewTile();
     }
-    else if (e.code == "ArrowRight") {
+    else if (e.code === "ArrowRight") {
         slideRight();
         setNewTile();
     }
-    else if (e.code == "ArrowUp") {
+    else if (e.code === "ArrowUp") {
         slideUp();
         setNewTile();
-
     }
-    else if (e.code == "ArrowDown") {
+    else if (e.code === "ArrowDown") {
         slideDown();
         setNewTile();
     }
     document.getElementById("score").innerText = score;
-})
+});
+
+//NOTE: Swipe event listeners for touch devices
+let touchStartX = 0;
+let touchStartY = 0;
+const swipeThreshold = 50; // Minimum distance in pixels for a swipe
+
+document.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }
+});
+
+document.addEventListener('touchend', (e) => {
+    if (e.changedTouches.length === 1) {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > swipeThreshold) {
+                // Swipe Right
+                slideRight();
+                setNewTile();
+            }
+            else if (deltaX < -swipeThreshold) {
+                // Swipe Left
+                slideLeft();
+                setNewTile();
+            }
+        }
+        else {
+            if (deltaY > swipeThreshold) {
+                // Swipe Down
+                slideDown();
+                setNewTile();
+            }
+            else if (deltaY < -swipeThreshold) {
+                // Swipe Up
+                slideUp();
+                setNewTile();
+            }
+        }
+        document.getElementById("score").innerText = score;
+    }
+});
+
+
 
 function filterZero(row){
     return row.filter(num => num != 0); //create new array of all nums != 0
