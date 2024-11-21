@@ -96,23 +96,23 @@ function endGame() {
 
 
 
-// Keyup event listener for arrow keys
+// Keyup event listener for arrow wasd keys
 document.addEventListener('keyup', (e) => {
     if (gameOver) return; // Do nothing if the game is over
 
-    if (e.code === "ArrowLeft") {
+    if (e.code === "ArrowLeft" || e.code === "KeyA") {
         slideLeft();
         setNewTile();
     }
-    else if (e.code === "ArrowRight") {
+    else if (e.code === "ArrowRight" || e.code === "KeyD") {
         slideRight();
         setNewTile();
     }
-    else if (e.code === "ArrowUp") {
+    else if (e.code === "ArrowUp" || e.code === "KeyW") {
         slideUp();
         setNewTile();
     }
-    else if (e.code === "ArrowDown") {
+    else if (e.code === "ArrowDown" || e.code === "KeyS") {
         slideDown();
         setNewTile();
     }
