@@ -9,8 +9,8 @@ let numToImage = {
     8: "fontbonne.jpg",
     16: "udub.jpg",
     32: "gw.png",
-    64: "wl.jpg", //NOTE: FROM HERE ON DOWN FIX .JPG OR .PNG
-    128: "purdue.jpg",
+    64: "wl.jpg",
+    128: "purdue.png",
     256: "umich.png",
     512: "northwestern.png",
     1024: "uchicago.png",

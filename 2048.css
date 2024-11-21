@@ -1,6 +1,12 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 hr {
@@ -105,4 +111,33 @@ hr {
 .x8192 {
     background-color: #ff2020;
     color: white;
+}
+
+#legend {
+    width: 200px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #bbada0;
+    border-radius: 5px;
+}
+
+.legend-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #cdc1b5;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.legend-item img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
 }
