@@ -1,147 +1,210 @@
 body {
-    font-family: Optima, sans-serif;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f6f2;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 10px; /* Reduced padding for mobile */
+    box-sizing: border-box;
+    background-color: #fbf8ef; /* Warmer background */
+    color: #776e65; /* Standard text color for 2048 */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+h1 {
+    font-size: 28px; /* Base size */
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+h1 img {
+    width: 100px; /* Scaled down title image */
+    height: auto;
+}
+
+h2 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+h3 {
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+button {
+    background-color: #8f7a66;
+    color: white;
+    padding: 8px 15px; /* Slightly smaller padding */
+    border: none;
+    border-radius: 5px;
+    font-size: 14px; /* Smaller font size */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #9f8b77;
 }
 
 
 hr {
-    width: 500px;
+    width: 90%;
+    max-width: 500px;
+    border: 1px solid #dcdcdc;
+    margin: 15px auto;
 }
 
+/* Responsive board and tiles */
 #board {
-    width: 400px;
-    height: 400px;
-
-    background-color: #cdc1b5;
+    width: calc(min(90vw, 400px)); /* Responsive width */
+    height: calc(min(90vw, 400px));/* Responsive height */
+    background-color: #bbada0; /* Board background */
     border: 6px solid #bbada0;
-
+    border-radius: 6px; /* Rounded corners for the board */
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    position: relative; 
+    padding: 0; /* Remove padding if tiles manage their own spacing via borders effectively */
+    box-sizing: border-box; /* Important for width calculation */
 }
 
 .tile {
-    width: 90px;
-    height: 90px;
-    border: 5px solid #bbada0;
-
-    font-size: 40px;
+    /* Calculate tile size based on board's dimensions. 4 tiles, borders act as spacing. */
+    /* Outer width of tile = (Board Content Width) / 4 */
+    /* Inner width of tile = (Board Content Width / 4) - 2 * tile_border_width */
+    /* Board Content Width is its specified width, since box-sizing is border-box and padding is 0. */
+    width: calc( (min(90vw, 400px) - 12px) / 4 - 10px); /* (BoardDim - 2*BoardBorder) / 4 - 2*TileBorder */
+    height: calc( (min(90vw, 400px) - 12px) / 4 - 10px);
+    border: 5px solid #bbada0; /* This acts as spacing */
+    border-radius: 3px; /* Rounded corners for tiles */
+    font-size: clamp(16px, 5vw, 35px); /* Responsive font size for tile numbers if they were shown */
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    background-color: #cdc1b5; /* Default for empty tile */
+    color: #776e65; 
+    transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out;
+    box-sizing: content-box; /* tile width/height refers to content area */
 }
+
 
 .tile img {
     position: absolute;
     top: 0;
     left: 0;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 3px; 
 }
 
 
 /* colored tiles */
-
+/* Colors adjusted for a slightly warmer/modern feel, while keeping distinction */
 .x2 {
     background-color: #eee4da;
-    color: #727371;
+    color: #776e65;
 }
 
 .x4 {
-    background-color: #ece0ca;
-    color: #727371;
+    background-color: #ede0c8;
+    color: #776e65;
 }
 
 .x8 {
-    background-color: #f4b17a;
-    color: white;
+    background-color: #f2b179;
+    color: #f9f6f2;
 }
 
 .x16{
-    background-color: #f59575;
-    color: white;
+    background-color: #f59563;
+    color: #f9f6f2;
 }
 
 .x32{
-    background-color: #f57c5f;
-    color: white;
+    background-color: #f67c5f;
+    color: #f9f6f2;
 }
 
 .x64{
-    background-color: #f65d3b;
-    color: white;
+    background-color: #f65e3b;
+    color: #f9f6f2;
 }
 
 .x128{
-    background-color: #edce71;
-    color: white;
+    background-color: #edcf72;
+    color: #f9f6f2;
 }
 
 .x256{
-    background-color: #edcc63;
-    color: white;
+    background-color: #edcc61;
+    color: #f9f6f2;
 }
 
 .x512{
-    background-color: #edc651;
-    color: white;
+    background-color: #edc850;
+    color: #f9f6f2;
 }
 
 .x1024{
-    background-color: #eec744;
-    color: white;
+    background-color: #edc53f;
+    color: #f9f6f2;
 }
 
 .x2048{
-    background-color: #ecc230;
-    color: white;
+    background-color: #edc22e;
+    color: #f9f6f2;
 }
 
 .x4096 {
-    background-color: #fe3d3d;
-    color: white;
+    background-color: #3c3a32; /* Darker for very high numbers */
+    color: #f9f6f2;
 }
 
 .x8192 {
-    background-color: #ff2020;
-    color: white;
+    background-color: #3c3a32; 
+    color: #f9f6f2;
 }
 
 #legend {
-    width: 300px;
-    margin: 20px auto;
+    width: 90%;
+    max-width: 400px; 
+    margin: 15px auto;
     padding: 10px;
-    background-color: #ebd7c7;
-    border-radius: 5px;
+    background-color: #eee4da; 
+    border: 2px solid #bbada0;
+    border-radius: 6px;
 }
 
 .legend-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 5px; /* Reduced gap */
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    background-color: #cdc1b5;
-    padding: 5px;
-    border-radius: 3px;
+    gap: 8px; /* Reduced gap */
+    background-color: #cdc1b5; 
+    padding: 5px; /* Reduced padding */
+    border-radius: 4px;
+    font-size: 12px; /* Smaller font for legend items */
+    color: #776e65;
 }
 
 .legend-item img {
-    width: 30px;
-    height: 30px;
+    width: 20px; /* Smaller images in legend */
+    height: 20px;
     object-fit: contain;
+    border-radius: 3px;
 }
 
 /* Game Over Overlay */
@@ -151,23 +214,151 @@ hr {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(238, 228, 218, 0.85); 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    text-align: center; 
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 #game-over-message {
-    color: white;
-    font-size: 48px;
+    color: #776e65; 
+    font-size: clamp(24px, 8vw, 36px); /* Responsive font size */
+    font-weight: bold;
     margin-bottom: 20px;
-    text-align: center;
 }
 
 #game-over-overlay button {
     padding: 10px 20px;
-    font-size: 20px;
+    font-size: 16px; /* Responsive font size */
+    background-color: #8f7a66;
+    color: #f9f6f2;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#game-over-overlay button:hover {
+    background-color: #776e65;
+}
+
+/* Animations */
+@keyframes tile-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.tile-appear {
+  animation: tile-appear 0.2s ease-out;
+}
+
+@keyframes tile-merge {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.tile-merged {
+  animation: tile-merge 0.2s ease-out;
+  z-index: 10; 
+}
+
+/* Andrew Martin Images Styling */
+.chancellor-image {
+    position: absolute;
+    width: 70px; /* Smaller base size */
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: -1; /* Behind other content if necessary */
+}
+
+.chancellor-image.left {
+    top: 10px;
+    left: 10px;
+}
+
+.chancellor-image.right {
+    top: 10px;
+    right: 10px;
+}
+
+
+/* Media Queries for smaller screens */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+    h1 {
+        font-size: 22px;
+    }
+    h1 img {
+        width: 80px;
+    }
+    h2 {
+        font-size: 18px;
+    }
+    h3 {
+        font-size: 14px;
+    }
+    
+    .chancellor-image {
+        width: 50px;
+        height: 50px;
+        top: 5px;
+    }
+    .chancellor-image.left {
+        left: 5px;
+    }
+    .chancellor-image.right {
+        right: 5px;
+    }
+
+    #new-game-button-container { /* Score and New Game button */
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    #new-game-button-container h2 {
+        margin-bottom: 5px;
+    }
+     button, #game-over-overlay button {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    h1 {
+        font-size: 20px;
+    }
+     h1 img {
+        width: 70px;
+    }
+    .legend-item {
+        font-size: 10px;
+        gap: 5px;
+        padding: 4px;
+    }
+    .legend-item img {
+        width: 18px;
+        height: 18px;
+    }
 }
