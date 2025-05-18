@@ -31,6 +31,10 @@ window.addEventListener("keydown", function(e) {
     }
 }, false);
 
+gameBoard.addEventListener('touchmove', function(event) {
+    event.preventDefault(); // Prevents scrolling when touch is on board
+}, { passive: false });
+
 function initializeGame() {
     board = []; 
     const boardElement = document.getElementById("board");
@@ -344,7 +348,35 @@ function setupSwipeControls() {
         }
     }
 }
+function handleMove(direction) {
+    if (gameOver) return; // Do nothing if the game is over
+    let moved = false;
 
+    switch (direction) {
+        case "SwipeLeft":
+            moved = slideLeft();
+            break;
+        case "SwipeRight":
+            moved = slideRight();
+            break;
+        case "SwipeUp":
+            moved = slideUp();
+            break;
+        case "SwipeDown":
+            moved = slideDown();
+            break;
+    }
+
+    if (moved) {
+        setNewTileAnimated(); // Use animated version
+    }
+    updateScoreDisplay(); // Update score display after any move attempt
+    
+    // Check for loss condition if no empty tiles and no possible moves
+    if (!hasEmptyTile() && !canMove()) {
+        setTimeout(handleLoss, 300); // Delay slightly
+    }
+}
 function handleLoss() {
     if (gameOver) return; // Prevent multiple calls if already lost or won
     gameOver = true;
