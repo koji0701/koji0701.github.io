@@ -313,6 +313,10 @@ function setupSwipeControls() {
         handleSwipeGesture();
     }, false);
     
+    gameBoard.addEventListener('touchmove', (event) => {
+        event.preventDefault(); // Prevents scrolling when touch is on board
+    }, { passive: false });
+    
     function handleSwipeGesture() {
         if (gameOver) return;
 
