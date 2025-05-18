@@ -31,10 +31,6 @@ window.addEventListener("keydown", function(e) {
     }
 }, false);
 
-gameBoard.addEventListener('touchmove', function(event) {
-    event.preventDefault(); // Prevents scrolling when touch is on board
-}, { passive: false });
-
 function initializeGame() {
     board = []; 
     const boardElement = document.getElementById("board");
@@ -172,7 +168,7 @@ document.addEventListener('keyup', (e) => {
 
 
 function filterZero(row){
-    return row.filter(num => num != 0); //create new array of all nums != 0
+    return row.filter(num => num !== 0); //create new array of all nums !== 0
 }
 
 function slide(row) {
@@ -182,7 +178,7 @@ function slide(row) {
     let mergedIndices = [];
 
     for (let i = 0; i < row.length-1; i++){
-        if (row[i] == row[i+1] && row[i] !== 0) { // Make sure we are not merging 0s
+        if (row[i] === row[i+1] && row[i] !== 0) { // Make sure we are not merging 0s
             row[i] *= 2;
             row[i+1] = 0;
             score += row[i];
@@ -306,23 +302,17 @@ function setupSwipeControls() {
     let touchendY = 0;
     const swipeThreshold = 50; // Minimum distance for a swipe
 
-    gameBoard.addEventListener('touchstart', function(event) {
+    gameBoard.addEventListener('touchstart', (event) => {
         touchstartX = event.changedTouches[0].screenX;
         touchstartY = event.changedTouches[0].screenY;
     }, false);
 
-    gameBoard.addEventListener('touchend', function(event) {
+    gameBoard.addEventListener('touchend', (event) => {
         touchendX = event.changedTouches[0].screenX;
         touchendY = event.changedTouches[0].screenY;
         handleSwipeGesture();
     }, false);
     
-    // Prevent page scrolling with touch on board if applicable
-    gameBoard.addEventListener('touchmove', function(event) {
-        event.preventDefault(); // Prevents scrolling when touch is on board
-    }, { passive: false });
-
-
     function handleSwipeGesture() {
         if (gameOver) return;
 
@@ -405,7 +395,7 @@ function setNewTileAnimated() { // Renamed from setNewTile
     while (!found) {
         let r = Math.floor(Math.random() * rows);
         let c = Math.floor(Math.random() * columns);
-        if (board[r][c] == 0) {
+        if (board[r][c] === 0) {
             board[r][c] = Math.random() < 0.9 ? 2 : 4; // 90% chance for 2, 10% for 4
             let tile = document.getElementById(r.toString() + "-" + c.toString());
             updateTile(tile, board[r][c]);
